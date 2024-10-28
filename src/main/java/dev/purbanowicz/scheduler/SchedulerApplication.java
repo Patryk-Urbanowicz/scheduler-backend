@@ -1,6 +1,6 @@
 package dev.purbanowicz.scheduler;
 
-import dev.purbanowicz.scheduler.configuration.RsaKeyProperties;
+import dev.purbanowicz.scheduler.security.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

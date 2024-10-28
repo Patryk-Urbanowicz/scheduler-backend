@@ -1,7 +1,6 @@
-package dev.purbanowicz.scheduler.configuration;
+package dev.purbanowicz.scheduler.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
