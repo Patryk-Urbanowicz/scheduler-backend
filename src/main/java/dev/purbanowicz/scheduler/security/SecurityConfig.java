@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/users/workers").hasAnyAuthority("ROLE_MANAGER")
+                        .requestMatchers("/users/**").hasAnyAuthority(RolesConstants.MANAGER, RolesConstants.OWNER)
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(AbstractHttpConfigurer::disable)
