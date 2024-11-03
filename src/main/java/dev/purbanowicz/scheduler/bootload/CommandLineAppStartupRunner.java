@@ -1,8 +1,10 @@
 package dev.purbanowicz.scheduler.bootload;
 
 import dev.purbanowicz.scheduler.entity.Role;
+import dev.purbanowicz.scheduler.entity.Shift;
 import dev.purbanowicz.scheduler.entity.UserEntity;
 import dev.purbanowicz.scheduler.repository.RoleRepository;
+import dev.purbanowicz.scheduler.repository.ShiftRepository;
 import dev.purbanowicz.scheduler.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,21 +13,24 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 public class CommandLineAppStartupRunner implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(CommandLineAppStartupRunner.class);
 
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final ShiftRepository shiftRepository;
 
     @Autowired
-    public CommandLineAppStartupRunner(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public CommandLineAppStartupRunner(PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository, ShiftRepository shiftRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.shiftRepository = shiftRepository;
     }
 
     @Override
@@ -71,7 +76,11 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         user3.setRoles(List.of(roleRepository.findByName("ROLE_OWNER").get()));
         userRepository.save(user3);
 
-
+        Shift shift1 = new Shift();
+        shift1.setStart(LocalDateTime.of(2024, 11, 11, 8, 0, 0));
+        shift1.setEnd(LocalDateTime.of(2024, 11, 11, 16, 0, 0));
+        shift1.setUser(user1);
+        shiftRepository.save(shift1);
     }
 
 }
